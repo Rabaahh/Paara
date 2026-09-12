@@ -59,6 +59,10 @@ header p {
     background: #16803c;
 }
 
+#start-button:disabled {
+    cursor: default;
+}
+
 #start-message {
     color: #666;
     margin-top: 10px;
@@ -85,6 +89,7 @@ header p {
 .camera-card h2 {
     text-align: center;
     margin-top: 5px;
+    margin-bottom: 12px;
 }
 
 .camera-container {
@@ -94,9 +99,99 @@ header p {
     overflow: hidden;
 }
 
-.camera-container img {
+.camera-container canvas {
     width: 100%;
     display: block;
+}
+
+
+/* -----------------------------------
+   Detection camera + overlay
+----------------------------------- */
+
+.detection-container {
+    position: relative;
+    width: 100%;
+    background: black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.detection-container canvas {
+    width: 100%;
+    display: block;
+}
+
+
+/* Top status bar */
+
+.detection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+
+    background: rgba(0, 0, 0, 0.72);
+    color: white;
+
+    min-height: 72px;
+}
+
+.overlay-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 8px 5px;
+
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.overlay-item:last-child {
+    border-right: none;
+}
+
+.overlay-item span {
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.overlay-item strong {
+    font-size: 14px;
+}
+
+.overlay-item small {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #ddd;
+}
+
+
+/* Status colors */
+
+#overlay-face {
+    color: #00e676;
+}
+
+#overlay-eyes {
+    color: #00e5ff;
+}
+
+#overlay-head {
+    color: #ffe600;
+}
+
+#overlay-body {
+    color: #ffe600;
+}
+
+#overlay-yawn {
+    color: #00e5ff;
 }
 
 
@@ -180,6 +275,10 @@ header p {
 }
 
 
+/* -----------------------------------
+   Overall status
+----------------------------------- */
+
 .overall-card {
     margin-top: 20px;
     background: white;
@@ -196,6 +295,15 @@ header p {
 
 
 /* -----------------------------------
+   Hide actual webcam source
+----------------------------------- */
+
+#camera {
+    display: none;
+}
+
+
+/* -----------------------------------
    Responsive
 ----------------------------------- */
 
@@ -208,11 +316,48 @@ header p {
     .status-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .detection-overlay {
+        min-height: 68px;
+    }
+
+    .overlay-item span {
+        font-size: 12px;
+    }
+
+    .overlay-item strong {
+        font-size: 12px;
+    }
+
+    .overlay-item small {
+        font-size: 11px;
+    }
 }
+
 
 @media (max-width: 500px) {
 
     .status-grid {
         grid-template-columns: 1fr;
+    }
+
+    .detection-overlay {
+        min-height: 60px;
+    }
+
+    .overlay-item {
+        padding: 4px 2px;
+    }
+
+    .overlay-item span {
+        font-size: 9px;
+    }
+
+    .overlay-item strong {
+        font-size: 9px;
+    }
+
+    .overlay-item small {
+        font-size: 8px;
     }
 }

@@ -7,8 +7,7 @@
 
     <title>Student Drowsiness Detector</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
@@ -20,8 +19,6 @@
         <p>Real-time classroom monitoring</p>
     </header>
 
-
-    <!-- START BUTTON -->
 
     <div class="start-section">
 
@@ -40,26 +37,67 @@
 
     <div class="camera-grid">
 
+        <!-- NORMAL CAMERA -->
+
         <div class="camera-card">
 
             <h2>Normal Camera</h2>
 
             <div class="camera-container">
-                <img src="{{ url_for('video_raw') }}"
-                     alt="Normal camera feed">
+                <canvas id="normal-canvas"></canvas>
             </div>
 
         </div>
 
 
+        <!-- DETECTION CAMERA -->
+
         <div class="camera-card">
 
             <h2>Detection Camera</h2>
 
-            <div class="camera-container">
-                <img src="{{ url_for('video_detected') }}"
-                     alt="Detection camera feed">
+            <div class="detection-container">
+
+                <canvas id="detection-canvas"></canvas>
+
+
+                <!-- STATUS OVERLAY -->
+
+                <div class="detection-overlay">
+
+                    <div class="overlay-item">
+                        <span>Face</span>
+                        <strong id="overlay-face">AWAKE</strong>
+                    </div>
+
+                    <div class="overlay-item">
+                        <span>Eyes</span>
+                        <strong id="overlay-eyes">OPEN</strong>
+                        <small id="overlay-eyes-time">0.0s</small>
+                    </div>
+
+                    <div class="overlay-item">
+                        <span>Head</span>
+                        <strong id="overlay-head">NORMAL</strong>
+                        <small id="overlay-head-time">0.0s</small>
+                    </div>
+
+                    <div class="overlay-item">
+                        <span>Body</span>
+                        <strong id="overlay-body">NORMAL</strong>
+                        <small id="overlay-body-time">0.0s</small>
+                    </div>
+
+                    <div class="overlay-item">
+                        <span>Yawn</span>
+                        <strong id="overlay-yawn">NO YAWN</strong>
+                        <small id="overlay-yawn-time">0.0s</small>
+                    </div>
+
+                </div>
+
             </div>
+
 
             <div class="legend">
 
@@ -97,7 +135,10 @@
 
     <!-- STATUS -->
 
-    <h2 class="section-title">Detection Status</h2>
+    <h2 class="section-title">
+        Detection Status
+    </h2>
+
 
     <div class="status-grid">
 
@@ -140,7 +181,20 @@
 </div>
 
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+<!--
+    This video element is only the webcam source.
+    It should NOT be visible on the page.
+-->
+
+<video
+    id="camera"
+    autoplay
+    playsinline
+    muted
+></video>
+
+
+<script type="module" src="static/script.js"></script>
 
 </body>
 </html>
